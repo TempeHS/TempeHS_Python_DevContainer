@@ -38,18 +38,25 @@
         "chat.agent.enabled": false
       },
       "extensions": [
-        "McCarter.start-git-bash",
-        "ms-python.python",
+        "bierner.markdown-mermaid",
+        "bierner.markdown-preview-github-styles",
         "esbenp.prettier-vscode",
+        "GitHub.codespaces",
+        "mathematic.vscode-pdf",
+        "McCarter.start-git-bash",
+        "mechatroner.rainbow-csv",
+        "ms-python.debugpy",
+        "ms-python.pylint",
+        "ms-python.python",
         "oderwat.indent-rainbow",
         "tomoki1207.pdf",
-        "GitHub.codespaces",
-        "ms-python.debugpy",
         "yahyabatulu.vscode-markdown-alert",
-        "bierner.markdown-preview-github-styles",
-        "mechatroner.rainbow-csv",
-        "ms-python.pylint",
-        "bierner.markdown-mermaid"
+        "narasimapandiyan.jetbrainsmono",
+        "oderwat.indent-rainbow",
+        "streetsidesoftware.code-spell-checker",
+        "tal7aouy.icons",
+        "yahyabatulu.vscode-markdown-alert",
+        "yy0931.vscode-sqlite3-editor"       
       ]
     }
   },
