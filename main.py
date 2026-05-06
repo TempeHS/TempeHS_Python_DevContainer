@@ -1,26 +1,24 @@
-# import pygame package
+import asyncio
 import pygame
 
-# initializing imported module
 pygame.init()
+pygame.display.set_mode((990, 540))
+clock = pygame.time.Clock()
 
-# displaying a window of height
-# 500 and width 400
-pygame.display.set_mode((400, 500))
 
-# creating a bool value which checks
-# if game is running
-running = True
+async def main():
+    count = 60
 
-# keep game running till running is true
-while running:
+    while count:
+        print(f"{count}: Hello from Pygame")
+        count -= 1
+        clock.tick(60)
+        pygame.display.update()
+        await asyncio.sleep(
+            0
+        )  # You must include this statement in your main loop. Keep the argument at 0.
 
-    print("lalalalalalala")
-    # Check for event if user has pushed
-    # any event in queue
-    for event in pygame.event.get():
+    pygame.quit()
 
-        # if event is of type quit then
-        # set running bool to false
-        if event.type == pygame.QUIT:
-            running = False
+
+asyncio.run(main())
