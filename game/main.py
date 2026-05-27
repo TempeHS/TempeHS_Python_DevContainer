@@ -94,6 +94,8 @@ class smiley(pg.sprite.Sprite):
                 self.image = pg.transform.flip(self.image, True, False)
         self.rect = newpos
 
+#yes
+
     def _spin(self):
         """spin the monkey image"""
         center = self.rect.center
