@@ -1,0 +1,6 @@
+list of python and pygame functions necessary for my game to remember
+
+import - os and pygame
+
+pygame.init() - initialise
+pg.display.set_mode((x,y), pygame.SCALED) set screen size
