@@ -1,11 +1,10 @@
-# Import Modules
 import os
-import pygame as pg
+import pygame as pg 
 
 if not pg.font:
-    print("Warning, fonts disabled")
+    print("fonts disabled")
 if not pg.mixer:
-    print("Warning, sound disabled")
+    print("sounds disabled")
 
 main_dir = os.path.split(os.path.abspath(__file__))[0]
 data_dir = os.path.join(main_dir, "data")
@@ -38,9 +37,9 @@ def load_sound(name):
 
     return sound
 
-class Fist(pg.sprite.Sprite):
-    """moves a clenched fist on the screen, following the mouse"""
-
+#for the sake of not messing up the tutorial i made a cursor sprite
+#will figure out how to actually do the click interactions after i finish
+class mouse(pg.sprite.Sprite):
     def __init__(self):
         pg.sprite.Sprite.__init__(self)  # call Sprite initializer
         self.image, self.rect = load_image("mouse.png", -1)
@@ -48,7 +47,6 @@ class Fist(pg.sprite.Sprite):
         self.punching = False
 
     def update(self):
-        """move the fist based on the mouse position"""
         pos = pg.mouse.get_pos()
         self.rect.topleft = pos
         self.rect.move_ip(self.fist_offset)
@@ -56,19 +54,16 @@ class Fist(pg.sprite.Sprite):
             self.rect.move_ip(15, 25)
 
     def punch(self, target):
-        """returns true if the fist collides with the target"""
         if not self.punching:
             self.punching = True
             hitbox = self.rect.inflate(-5, -5)
             return hitbox.colliderect(target.rect)
 
     def unpunch(self):
-        """called to pull the fist back"""
         self.punching = False
 
-class Chimp(pg.sprite.Sprite):
-    """moves a monkey critter across the screen. it can spin the
-    monkey when it is punched."""
+#they lobotomised youareanidiot :[
+class smiley(pg.sprite.Sprite):
 
     def __init__(self):
         pg.sprite.Sprite.__init__(self)  # call Sprite initializer
@@ -80,14 +75,12 @@ class Chimp(pg.sprite.Sprite):
         self.dizzy = False
 
     def update(self):
-        """walk or spin, depending on the monkeys state"""
         if self.dizzy:
             self._spin()
         else:
             self._walk()
 
     def _walk(self):
-        """move the monkey across the screen, and turn at the ends"""
         newpos = self.rect.move((self.move, 0))
         if not self.area.contains(newpos):
             if self.rect.left < self.area.left or self.rect.right > self.area.right:
@@ -96,8 +89,8 @@ class Chimp(pg.sprite.Sprite):
                 self.image = pg.transform.flip(self.image, True, False)
         self.rect = newpos
 
+
     def _spin(self):
-        """spin the monkey image"""
         center = self.rect.center
         self.dizzy = self.dizzy + 12
         if self.dizzy >= 360:
@@ -109,34 +102,33 @@ class Chimp(pg.sprite.Sprite):
         self.rect = self.image.get_rect(center=center)
 
     def punched(self):
-        """this will cause the monkey to start spinning"""
         if not self.dizzy:
             self.dizzy = True
             self.original = self.image
 
+#initialise pygame
 pg.init()
+#set screen size
 screen = pg.display.set_mode((1280, 480), pg.SCALED)
-pg.display.set_caption("Monkey Fever")
+pg.display.set_caption("test game")
 pg.mouse.set_visible(False)
 
 background = pg.Surface(screen.get_size())
 background = background.convert()
-background.fill((170, 238, 187))
+background.fill((170,238,17))
 
 if pg.font:
     font = pg.font.Font(None, 64)
-    text = font.render("Pummel The Chimp, And Win $$$", True, (10, 10, 10))
-    textpos = text.get_rect(centerx=background.get_width() / 2, y=10)
+    text = font.render("game", True, (10,10,10))
+    textpos = text.get_rect(centerx=background.get_width()/2, y=10)
     background.blit(text, textpos)
-
-screen.blit(background, (0, 0))
+0
+screen.blit(background, (0,0))
 pg.display.flip()
 
-whiff_sound = load_sound("no.wav")
-punch_sound = load_sound("yes.wav")
-chimp = Chimp()
-fist = Fist()
-allsprites = pg.sprite.RenderPlain((chimp, fist))
+mouse = mouse()
+smiley = smiley()
+allsprites = pg.sprite.RenderPlain((mouse, smiley))
 clock = pg.time.Clock()
 
 going = True
@@ -146,18 +138,17 @@ while going:
 for event in pg.event.get():
     if event.type == pg.QUIT:
         going = False
-    elif event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE:
+    elif event.type == pg.KEYDOWN and event.key == pg.ESCAPE:
         going = False
     elif event.type == pg.MOUSEBUTTONDOWN:
-        if fist.punch(chimp):
-            punch_sound.play()  # punch
-            chimp.punched()
-        else:
-            whiff_sound.play()  # miss
+        if mouse.punch(smiley):
+            smiley.punched
     elif event.type == pg.MOUSEBUTTONUP:
-        fist.unpunch()
+        mouse.unpunch
     allsprites.update()
-    screen.blit(background, (0, 0))
-    allsprites.draw(screen)
-    pg.display.flip()
-    pg.quit()
+
+screen.blit(background, (0, 0))
+allsprites.draw(screen)
+pg.display.flip()
+
+pg.quit()
