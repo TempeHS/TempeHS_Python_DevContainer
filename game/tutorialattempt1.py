@@ -6,8 +6,10 @@ if not pg.font:
 if not pg.mixer:
     print("sounds disabled")
 
+
 main_dir = os.path.split(os.path.abspath(__file__))[0]
 data_dir = os.path.join(main_dir, "data")
+
 
 def load_image(name, colorkey=None, scale=1):
     fullname = os.path.join(data_dir, name)
@@ -108,14 +110,19 @@ class smiley(pg.sprite.Sprite):
 
 #initialise pygame
 pg.init()
+print("test 1")
 #set screen size
 screen = pg.display.set_mode((1280, 480), pg.SCALED)
+print("test 2")
 pg.display.set_caption("test game")
-pg.mouse.set_visible(False)
+print("test 3")
+pg.mouse.set_visible(True)
+print("test 4")
 
 background = pg.Surface(screen.get_size())
 background = background.convert()
 background.fill((170,238,17))
+print("test 5")
 
 if pg.font:
     font = pg.font.Font(None, 64)
@@ -125,30 +132,38 @@ if pg.font:
 0
 screen.blit(background, (0,0))
 pg.display.flip()
+print("test 6")
 
 mouse = mouse()
 smiley = smiley()
-allsprites = pg.sprite.RenderPlain((mouse, smiley))
+allsprites = pg.sprite.RenderClear((mouse, smiley))
+print("test 7")
 clock = pg.time.Clock()
+print("test7.5")
 
 going = True
 while going:
+    pg.display.init()
+    pg.Surface.init()
     clock.tick(60)
+    for event in pg.event.get():
+        if event.type == pg.QUIT:
+            going = False
+            print("uit")
+        elif event.type == pg.KEYDOWN and event.key == pg.ESCAPE:
+            going = False
+            print("quite")
+        elif event.type == pg.MOUSEBUTTONDOWN:
+            if mouse.punch(smiley):
+                smiley.punched
+                print("test9 ")
+        elif event.type == pg.MOUSEBUTTONUP:
+            mouse.unpunch
+            print("test 10")
+        allsprites.update()
 
-for event in pg.event.get():
-    if event.type == pg.QUIT:
-        going = False
-    elif event.type == pg.KEYDOWN and event.key == pg.ESCAPE:
-        going = False
-    elif event.type == pg.MOUSEBUTTONDOWN:
-        if mouse.punch(smiley):
-            smiley.punched
-    elif event.type == pg.MOUSEBUTTONUP:
-        mouse.unpunch
-    allsprites.update()
-
-screen.blit(background, (0, 0))
-allsprites.draw(screen)
-pg.display.flip()
-
-pg.quit()
+    screen.blit(background, (0, 0))
+    allsprites.draw(screen)
+    pg.display.flip()
+    print("test 8")
+    pg.quit()
