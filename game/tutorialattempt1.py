@@ -66,7 +66,6 @@ class mouse(pg.sprite.Sprite):
 
 #they lobotomised youareanidiot :[
 class smiley(pg.sprite.Sprite):
-
     def __init__(self):
         pg.sprite.Sprite.__init__(self)  # call Sprite initializer
         self.image, self.rect = load_image("you-are-an-idiot.png", -1, 4)
@@ -141,29 +140,25 @@ print("test 7")
 clock = pg.time.Clock()
 print("test7.5")
 
-going = True
-while going:
-    pg.display.init()
-    pg.Surface.init()
-    clock.tick(60)
-    for event in pg.event.get():
-        if event.type == pg.QUIT:
-            going = False
-            print("uit")
-        elif event.type == pg.KEYDOWN and event.key == pg.ESCAPE:
-            going = False
-            print("quite")
-        elif event.type == pg.MOUSEBUTTONDOWN:
-            if mouse.punch(smiley):
-                smiley.punched
-                print("test9 ")
-        elif event.type == pg.MOUSEBUTTONUP:
-            mouse.unpunch
-            print("test 10")
-        allsprites.update()
+clock.tick(60)
+for event in pg.event.get():
+    if event.type == pg.QUIT:
+        going = False
+        print("uit")
+    elif event.type == pg.KEYDOWN and event.key == pg.ESCAPE:
+        going = False
+        print("quite")
+    elif event.type == pg.MOUSEBUTTONDOWN:
+        if mouse.punch(smiley):
+            smiley.punched
+            print("test9 ")
+    elif event.type == pg.MOUSEBUTTONUP:
+        mouse.unpunch
+        print("test 10")
+    allsprites.update()
 
-    screen.blit(background, (0, 0))
-    allsprites.draw(screen)
-    pg.display.flip()
-    print("test 8")
-    pg.quit()
+screen.blit(background, (0, 0))
+allsprites.draw(screen)
+pg.display.flip()
+print("test 8")
+pg.quit()
