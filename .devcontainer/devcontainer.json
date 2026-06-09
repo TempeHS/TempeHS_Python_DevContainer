@@ -1,9 +1,7 @@
 {
   "name": "Python Development Container",
-  "image": "mcr.microsoft.com/devcontainers/python:1-bookworm",
-  "features": {
-    "ghcr.io/devcontainers-contrib/features/coverage-py:2": {}
-  },
+  "image": "mcr.microsoft.com/devcontainers/python:3.13-bookworm",
+  "features": {},
   "hostRequirements": {
     "cpus": 4
   },
